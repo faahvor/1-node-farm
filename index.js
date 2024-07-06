@@ -1,5 +1,6 @@
 const fs = require("fs");
 const http = require("http")
+const url = require("url")
 
 ////////////////////////////////
 // FILES
@@ -30,5 +31,20 @@ const http = require("http")
 /////////////////////////////////////////
 //SERVER
 const server = http.createServer((req,res)=>{
-    res.end("Hello from the Server")
+    const pathName = req.url;
+
+    if(pathName === '/' || pathName === '/overview'){
+        res.end('this is the OVERVIEW')
+    }else if (pathName === '/product'){
+        res.end('this is the PRODUCT')
+    }else{
+        res.writeHead(404,{
+            'Content-type': 'text/html',
+            'my-own-header': 'hello-world'
+        })
+        res.end('<h1 style="text-align:center; color:red;">Page not Found</h1>')
+    }
+})
+server.listen(8000,'127.0.0.1',()=>{
+    console.log("listening to response on port 8000");
 })
