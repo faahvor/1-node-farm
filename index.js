@@ -28,23 +28,34 @@ const url = require("url");
 
 /////////////////////////////////////////
 //SERVER
+const tempOverview = fs.readFileSync(`${__dirname}/starter/templates/template-overview.html`,'utf-8')
+const tempCard = fs.readFileSync(`${__dirname}/starter/templates/template-card.html`,'utf-8')
+const tempProduct = fs.readFileSync(`${__dirname}/starter/templates/product.html`,'utf-8')
+
 const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`,'utf-8')
  const dataObj = JSON.parse(data)
 
 const server = http.createServer((req, res) => {
   const pathName = req.url;
 
+  //OVERVIEW PAGE
   if (pathName === "/" || pathName === "/overview") {
     res.end("this is the OVERVIEW");
-  } else if (pathName === "/product") {
+  } 
+  //PRODUCT PAGE
+  else if (pathName === "/product") {
     res.end("this is the PRODUCT");
-  }else if(pathName === "/api"){
+  }
+  //API PAGE
+  else if(pathName === "/api"){
        res.writeHead(200,{
         "Content-type":'application/json'
        })
         res.end(data)
     
-  } else {
+  } 
+  //NOT FOUND
+  else {
     res.writeHead(404, {
       "Content-type": "text/html",
       "my-own-header": "hello-world",
