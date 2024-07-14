@@ -29,35 +29,27 @@ const url = require("url");
 /////////////////////////////////////////
 //SERVER
 const replaceTemplate = (temp, product) => {
-  let output = temp.replace(/{PRODUCTNAME}/g, product);
-  output = output.replace(/{IMAGE}/g, product.image);
-  output = output.replace(/{FROM}/g, product.from);
-  output = output.replace(/{%PRODUCTNUTRIENTNAME%}/g, product.nutrients);
+  let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName);
+  output = output.replace(/{%IMAGE%}/g, product.image);
+  output = output.replace(/{%FROM%}/g, product.from);
+  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
   output = output.replace(/{%QUANTITY%}/g, product.quantity);
   output = output.replace(/{%PRICE%}/g, product.price);
   output = output.replace(/{%ID%}/g, product.id);
-
-  if (!product.organic) {
+  output = output.replace(/{%DESCRIPTION%}/g, product.description);
+    if (!product.organic) {
     output = output.replace(/{%NOT_ORGANIC%}/g, "not_organic");
   }
-  output = output.replace(/{%DESCRIPTION}%/g, product.description);
+  
 };
-const tempOverview = fs.readFileSync(
-  `${__dirname}/starter/templates/template-overview.html`,
-  "utf-8"
+const tempOverview = fs.readFileSync(`${__dirname}/starter/templates/template-overview.html`,"utf-8"
 );
-const tempCard = fs.readFileSync(
-  `${__dirname}/starter/templates/template-card.html`,
-  "utf-8"
+const tempCard = fs.readFileSync(`${__dirname}/starter/templates/template-card.html`,"utf-8"
 );
-const tempProduct = fs.readFileSync(
-  `${__dirname}/starter/templates/product.html`,
-  "utf-8"
+const tempProduct = fs.readFileSync(`${__dirname}/starter/templates/product.html`,"utf-8"
 );
 
-const data = fs.readFileSync(
-  `${__dirname}/starter/dev-data/data.json`,
-  "utf-8"
+const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`,"utf-8"
 );
 const dataObj = JSON.parse(data);
 
